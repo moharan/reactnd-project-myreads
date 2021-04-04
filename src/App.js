@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import CurrentlyReading from './Bookshelf/CurrentlyReading'
 import WantToRead from './Bookshelf/WantToRead'
 import Read from './Bookshelf/Read'
+import { Route, Link } from 'react-router-dom'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -25,9 +26,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
+          <Route exact path='/search' render={() => (
+            <div className="search-books">
             <div className="search-books-bar">
-              <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+              <Link to='/' className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</Link>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -45,6 +47,7 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
+          )} />
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -58,7 +61,7 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+            <Link to='/search'  onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link>
             </div>
           </div>
         )}
